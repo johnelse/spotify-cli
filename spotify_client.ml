@@ -57,12 +57,12 @@ struct
   let play proxy =
     OBus_method.call m_Play proxy ()
 
-  let seek proxy ~Offset =
-    OBus_method.call m_Seek proxy Offset
+  let seek proxy ~offset =
+    OBus_method.call m_Seek proxy offset
 
-  let set_position proxy ~TrackId ~Position =
-    let TrackId = OBus_proxy.path TrackId in
-    OBus_method.call m_SetPosition proxy (TrackId, Position)
+  let set_position proxy ~trackId ~position =
+    let trackId = OBus_proxy.path trackId in
+    OBus_method.call m_SetPosition proxy (trackId, position)
 
   let open_uri proxy x1 =
     OBus_method.call m_OpenUri proxy x1

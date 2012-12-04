@@ -18,8 +18,8 @@ module Org_mpris_MediaPlayer2_Player : sig
   val play_pause : OBus_proxy.t -> unit Lwt.t
   val stop : OBus_proxy.t -> unit Lwt.t
   val play : OBus_proxy.t -> unit Lwt.t
-  val seek : OBus_proxy.t -> Offset : int64 -> unit Lwt.t
-  val set_position : OBus_proxy.t -> TrackId : OBus_proxy.t -> Position : int64 -> unit Lwt.t
+  val seek : OBus_proxy.t -> offset : int64 -> unit Lwt.t
+  val set_position : OBus_proxy.t -> trackId : OBus_proxy.t -> position : int64 -> unit Lwt.t
   val open_uri : OBus_proxy.t -> string -> unit Lwt.t
   val seeked : OBus_proxy.t -> int64 OBus_signal.t
   val playback_status : OBus_proxy.t -> (string, [ `readable ]) OBus_property.t
