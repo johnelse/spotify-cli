@@ -1,0 +1,12 @@
+.omakedb*
+
+*.a
+*.cmi
+*.cmx
+*.cmxa
+*.o
+*.omc
+*.opt
+*.swp
+
+spotify-cli
