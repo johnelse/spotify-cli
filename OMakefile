@@ -1,0 +1,73 @@
+# .PHONY: all install clean
+
+# .SUBDIRS
+
+################################################
+# Configuration.  You might want to modify any of these
+# configuration variables.
+#
+
+# CFLAGS +=
+# ASFLAGS +=
+# LDFLAGS +=
+# INCLUDES +=
+
+USE_OCAMLFIND = true
+#
+OCAMLPACKS[] =
+  obus
+#    pack2
+#
+if $(not $(OCAMLFIND_EXISTS))
+  eprintln(This project requires ocamlfind, but is was not found.)
+  eprintln(You need to install ocamlfind and run "omake --configure".)
+  exit 1
+
+#
+# Include path
+#
+# OCAMLINCLUDES +=
+
+#
+# Compile native or byte code? 
+#
+# The default values are defined as follows:
+#
+# NATIVE_ENABLED = $(OCAMLOPT_EXISTS)
+# BYTE_ENABLED = $(not $(OCAMLOPT_EXISTS))
+
+#
+# Various options
+#
+# OCAMLFLAGS    +=
+# OCAMLCFLAGS   +=
+# OCAMLOPTFLAGS +=
+# OCAML_LINK_FLAGS +=
+# OCAML_BYTE_LINK_FLAGS +=
+# OCAML_NATIVE_LINK_FLAGS +=
+
+################################################
+# Build an OCaml library
+#
+
+# FILES[] =
+#    file1
+#    file2
+#
+# LIB = main
+#
+# .DEFAULT: $(OCamlLibrary $(LIB), $(FILES))
+
+OCamlLibrary(spotify_interfaces, spotify_interfaces)
+OCamlLibrary(spotify_client, spotify_client)
+
+FILES[] =
+    spotify_cli
+
+PROGRAM = spotify-cli
+OCAML_LIBS += spotify_interfaces spotify_client
+OCAML_CLIBS +=
+OCAML_OTHER_LIBS +=
+OCAML_LIB_FLAGS +=
+
+.DEFAULT: $(OCamlProgram $(PROGRAM), $(FILES))
