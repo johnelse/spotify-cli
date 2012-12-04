@@ -10,16 +10,21 @@ if $(not $(OCAMLFIND_EXISTS))
   eprintln(You need to install ocamlfind and run "omake --configure".)
   exit 1
 
+########################################################
+
 OCamlLibrary(spotify_interfaces, spotify_interfaces)
 OCamlLibrary(spotify_client, spotify_client)
+
+OCAML_LIBS += spotify_interfaces spotify_client
+OCAML_CLIBS +=
+OCAML_OTHER_LIBS +=
+OCAML_LIB_FLAGS +=
+
+########################################################
 
 FILES[] =
     spotify_cli
 
 PROGRAM = spotify-cli
-OCAML_LIBS += spotify_interfaces spotify_client
-OCAML_CLIBS +=
-OCAML_OTHER_LIBS +=
-OCAML_LIB_FLAGS +=
 
 .DEFAULT: $(OCamlProgram $(PROGRAM), $(FILES))
