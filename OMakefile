@@ -1,5 +1,7 @@
 # .PHONY: all install clean
 
+OCAMLFLAGS += -bin-annot
+
 USE_OCAMLFIND = true
 
 OCAMLPACKS[] =
