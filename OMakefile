@@ -30,3 +30,11 @@ FILES[] =
 PROGRAM = spotify-cli
 
 .DEFAULT: $(OCamlProgram $(PROGRAM), $(FILES))
+
+CLEAN_OBJS = *.a *.cmi *.cmt *.cmti *.cmx *.cmxa *.o *.opt $(PROGRAM)
+export CLEAN_OBJS
+
+.PHONY: clean
+clean:
+	rm -f $(CLEAN_OBJS)
+
