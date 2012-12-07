@@ -4,13 +4,14 @@ OCAMLFLAGS += -bin-annot
 
 USE_OCAMLFIND = true
 
-OCAMLPACKS[] =
-  obus
+OCAMLPACKS[] = camlp4 obus
 
 if $(not $(OCAMLFIND_EXISTS))
   eprintln(This project requires ocamlfind, but is was not found.)
   eprintln(You need to install ocamlfind and run "omake --configure".)
   exit 1
+
+UseCamlp4(lwt.syntax, spotify_cli)
 
 ########################################################
 
@@ -24,11 +25,8 @@ OCAML_LIB_FLAGS +=
 
 ########################################################
 
-FILES[] =
-    spotify_cli
-
 PROGRAM = spotify-cli
-
+FILES = spotify_cli
 .DEFAULT: $(OCamlProgram $(PROGRAM), $(FILES))
 
 CLEAN_OBJS = *.a *.cmi *.cmt *.cmti *.cmx *.cmxa *.o *.opt $(PROGRAM)
@@ -37,4 +35,3 @@ export CLEAN_OBJS
 .PHONY: clean
 clean:
 	rm -f $(CLEAN_OBJS)
-
