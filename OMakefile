@@ -1,6 +1,9 @@
 # .PHONY: all install clean
 
-OCAMLFLAGS += -bin-annot
+OCAML_MAJOR_VERSION = $(shell ocaml -vnum | cut -d . -f 1)
+
+if $(equal $(OCAML_MAJOR_VERSION), 4)
+  OCAMLFLAGS += -bin-annot
 
 USE_OCAMLFIND = true
 
