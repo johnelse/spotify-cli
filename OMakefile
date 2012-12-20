@@ -32,7 +32,7 @@ PROGRAM = spotify-cli
 FILES = spotify_cli
 .DEFAULT: $(OCamlProgram $(PROGRAM), $(FILES))
 
-CLEAN_OBJS = *.a *.cmi *.cmt *.cmti *.cmx *.cmxa *.o *.opt $(PROGRAM)
+CLEAN_OBJS = *.a *.cmi *.cmo *.cmt *.cmti *.cmx *.cmxa *.o *.opt $(PROGRAM)
 export CLEAN_OBJS
 
 .PHONY: clean
