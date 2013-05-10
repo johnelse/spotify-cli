@@ -1,0 +1,10 @@
+name: spotify-cli
+version: 0.1.0
+synopsis: Simple CLI program for controlling Spotify on Linux
+obuild-ver: 1
+
+executable spotify-cli
+  src-dir: src
+  main: spotify_cli.ml
+  build-deps: obus, lwt.syntax
+  pp: camlp4o

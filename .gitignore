@@ -1,15 +1,1 @@
-.omakedb*
-
-*.a
-*.cmi
-*.cmo
-*.cmt
-*.cmti
-*.cmx
-*.cmxa
-*.o
-*.omc
-*.opt
-*.swp
-
-spotify-cli
+dist
