@@ -39,11 +39,7 @@ lwt _ =
   end in
 
   lwt bus = OBus_bus.session () in
-  let proxy =
-    OBus_proxy.make
-      (OBus_peer.make bus "org.mpris.MediaPlayer2.spotify")
-      ["org"; "mpris"; "MediaPlayer2"]
-  in
+  let proxy = Spotify_proxy.of_bus bus in
 
   try_lwt
     run_command command proxy
