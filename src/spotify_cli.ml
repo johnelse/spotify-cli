@@ -1,16 +1,13 @@
 open Lwt
 open Lwt_io
 
-module Spotify = Spotify_interfaces.Org_mpris_MediaPlayer2_Player
-
-let run_command command proxy =
-  OBus_method.call command proxy ()
+module Spotify = Spotify_client.Org_mpris_MediaPlayer2_Player
 
 let commands =
   [
-    "pp", ("Play/pause", Spotify.m_PlayPause);
-    "p", ("Previous", Spotify.m_Previous);
-    "n", ("Next", Spotify.m_Next);
+    "pp", ("Play/pause", Spotify.play_pause);
+    "p", ("Previous", Spotify.previous);
+    "n", ("Next", Spotify.next);
   ]
 
 (* Print usage text. *)
@@ -42,7 +39,7 @@ lwt _ =
   let proxy = Spotify_proxy.of_bus bus in
 
   try_lwt
-    run_command command proxy
+    command proxy
   with
     | OBus_bus.Name_has_no_owner _
     | OBus_bus.Service_unknown _ ->
