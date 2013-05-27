@@ -50,7 +50,7 @@ let play_pause_cmd =
     `P "Start spotify playing if it is paused, otherwise pause it.";
   ] @ help_secs in
   Term.(pure Spotify_commands.play_pause $ pure ()),
-  Term.info "play_pause" ~doc ~man
+  Term.info "play-pause" ~doc ~man
 
 let previous_cmd =
   let doc = "switch to the previous track" in
