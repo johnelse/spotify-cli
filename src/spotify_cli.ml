@@ -1,29 +1,11 @@
 open Cmdliner
-open Lwt
-open Lwt_io
 
-module Spotify = Spotify_client.Org_mpris_MediaPlayer2_Player
-
-let with_proxy f =
-  lwt bus = OBus_bus.session () in
-  let proxy = Spotify_proxy.of_bus bus in
-  try_lwt
-    f proxy
-  with
-    | OBus_bus.Name_has_no_owner _
-    | OBus_bus.Service_unknown _ ->
-      lwt () = printl "Spotify service not found - is it running?" in
-      exit 1
-    | exn ->
-      raise_lwt exn
-
-(* Command implementations *)
 let help man_format cmds topic =
   match topic with
   | None -> `Help (`Pager, None)
   | Some topic ->
     let topics = "topics" :: cmds in
-    let conv, _ = Cmdliner.Arg.enum (List.rev_map (fun s -> (s, s)) topics) in
+    let conv, _ = Arg.enum (List.rev_map (fun s -> (s, s)) topics) in
     match conv topic with
     | `Error e -> `Error (false, e)
     | `Ok t when t = "topics" -> List.iter print_endline topics; `Ok ()
@@ -31,15 +13,6 @@ let help man_format cmds topic =
     | `Ok t ->
       let page = (topic, 7, "", "", ""), [`S topic; `P "Say something"] in
       `Ok (Manpage.print man_format Format.std_formatter page)
-
-let next () =
-  Lwt_main.run (with_proxy Spotify.next)
-
-let play_pause () =
-  Lwt_main.run (with_proxy Spotify.play_pause)
-
-let previous () =
-  Lwt_main.run (with_proxy Spotify.previous)
 
 (* Command definitions *)
 let help_secs = [
@@ -67,7 +40,7 @@ let next_cmd =
     `S "DESCRIPTION";
     `P "Switch to the next track in the current playlist.";
   ] @ help_secs in
-  Term.(pure next $ pure ()),
+  Term.(pure Spotify_commands.next $ pure ()),
   Term.info "next" ~doc ~man
 
 let play_pause_cmd =
@@ -76,7 +49,7 @@ let play_pause_cmd =
     `S "DESCRIPTION";
     `P "Start spotify playing if it is paused, otherwise pause it.";
   ] @ help_secs in
-  Term.(pure play_pause $ pure ()),
+  Term.(pure Spotify_commands.play_pause $ pure ()),
   Term.info "play_pause" ~doc ~man
 
 let previous_cmd =
@@ -85,7 +58,7 @@ let previous_cmd =
     `S "DESCRIPTION";
     `P "Switch to the previous track in the current playlist.";
   ] @ help_secs in
-  Term.(pure previous $ pure ()),
+  Term.(pure Spotify_commands.previous $ pure ()),
   Term.info "previous" ~doc ~man
 
 let default_cmd =
