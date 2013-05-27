@@ -6,5 +6,5 @@ obuild-ver: 1
 executable spotify-cli
   src-dir: src
   main: spotify_cli.ml
-  build-deps: obus, lwt.syntax, spotify-dbus
+  build-deps: obus, lwt.syntax, spotify-dbus, cmdliner
   pp: camlp4o
