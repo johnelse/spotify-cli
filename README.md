@@ -1,6 +1,7 @@
 Minimal OCaml CLI program for controlling spotify on Linux via dbus.
 
-Build dependencies:
+Build dependencies
+------------------
 
 * [cmdliner](https://github.com/dbuenzli/cmdliner)
 * [obus](https://github.com/diml/obus)
