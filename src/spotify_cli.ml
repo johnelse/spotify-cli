@@ -65,6 +65,19 @@ let play_pause_cmd =
   Term.(pure Spotify_commands.play_pause $ pure ()),
   Term.info "play-pause" ~doc ~man
 
+let play_track_cmd =
+  let track_name =
+    let doc = "The track to use as a search string" in
+    Arg.(required & pos 0 (some string) None & info [] ~docv:"NAME" ~doc)
+  in
+  let doc = "play a track" in
+  let man = [
+    `S "DESCRIPTION";
+    `P "Search for a track using the spotify metadata API, then play the first result"
+  ] @ help_secs in
+  Term.(pure Spotify_commands.play_track $ track_name),
+  Term.info "play-track" ~doc ~man
+
 let previous_cmd =
   let doc = "switch to the previous track" in
   let man = [
@@ -85,6 +98,7 @@ let cmds = [
   next_cmd;
   play_album_cmd;
   play_pause_cmd;
+  play_track_cmd;
   previous_cmd;
 ]
 

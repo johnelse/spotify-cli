@@ -32,5 +32,14 @@ let play_album album_name =
 let play_pause () =
   Lwt_main.run (with_proxy Spotify.play_pause)
 
+let play_track track_name =
+  let play_track_lwt =
+    lwt results = Spotify_search.search_tracks track_name in
+    let track = List.nth results.Spotify_search_t.tracks 0 in
+    with_proxy
+      (fun proxy -> Spotify.open_uri proxy track.Spotify_search_t.track_href)
+  in
+  Lwt_main.run play_track_lwt
+
 let previous () =
   Lwt_main.run (with_proxy Spotify.previous)
