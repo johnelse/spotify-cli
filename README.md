@@ -8,3 +8,25 @@ Build dependencies
 * [ocaml-spotify-dbus](https://github.com/johnelse/ocaml-spotify-dbus)
 * [ocaml-spotify-web](https://github.com/johnelse/ocaml-spotify-web)
 * [obuild](https://github.com/vincenthz/obuild)
+
+Supported commands
+------------------
+
+```
+    spotify-cli play-pause
+    spotify-cli previous
+    spotify-cli next
+    spotify-cli play-album <search-string>
+    spotify-cli play-track <search-string>
+```
+
+`play-track` and `play-album` search for the supplied name using the spotify
+metadata API, and play the first result (if any).
+
+`search-string` doesn't have to match the album or track title exactly - in
+fact you will probably get better results if you specify the artist name along
+with the album or track name e.g.
+
+```
+    spotify-cli play-album "sepultura arise"
+```
