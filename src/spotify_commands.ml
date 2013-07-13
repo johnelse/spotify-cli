@@ -1,13 +1,12 @@
 open Lwt
 open Lwt_io
 
-module Spotify = Spotify_client.Org_mpris_MediaPlayer2_Player
+module Spotify = Mpris_spotify.Org_mpris_MediaPlayer2_Player
 
 exception No_results
 
 let with_proxy f =
-  lwt bus = OBus_bus.session () in
-  let proxy = Spotify_proxy.of_bus bus in
+  lwt proxy = Mpris_spotify.make_proxy () in
   try_lwt
     f proxy
   with
