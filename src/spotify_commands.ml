@@ -21,6 +21,20 @@ let with_proxy f =
 let next () =
   Lwt_main.run (with_proxy Spotify.next)
 
+let now_playing () =
+  Lwt_main.run
+    (with_proxy (fun proxy ->
+      let metadata_property = Spotify.metadata proxy in
+      lwt metadata = OBus_property.get metadata_property in
+      try_lwt
+        let title = match List.assoc "xesam:title" metadata with
+        | OBus_value.V.Basic (OBus_value.V.String title) -> title
+        | _ -> failwith "bad title type"
+        in
+        Lwt_io.printlf "Title: %s" title
+      with _ ->
+        Lwt_io.printlf "unexpected metadata"))
+
 let play_album album_name =
   let play_album_lwt =
     lwt results = Spotify_search.search_albums album_name in

@@ -43,6 +43,15 @@ let next_cmd =
   Term.(pure Spotify_commands.next $ pure ()),
   Term.info "next" ~doc ~man
 
+let now_playing_cmd =
+  let doc = "print track metadata" in
+  let man = [
+    `S "DESCRIPTION";
+    `P "Print metadata about the currently-playing track";
+  ] @ help_secs in
+  Term.(pure Spotify_commands.now_playing $ pure ()),
+  Term.info "now-playing" ~doc ~man
+
 let play_album_cmd =
   let album_name =
     let doc = "The album name to use as a search string" in
@@ -96,6 +105,7 @@ let default_cmd =
 let cmds = [
   help_cmd;
   next_cmd;
+  now_playing_cmd;
   play_album_cmd;
   play_pause_cmd;
   play_track_cmd;
