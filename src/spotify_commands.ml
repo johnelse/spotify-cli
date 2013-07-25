@@ -27,10 +27,16 @@ let now_playing () =
       let metadata_property = Spotify.metadata proxy in
       lwt metadata = OBus_property.get metadata_property in
       try_lwt
-        let title = match List.assoc "xesam:title" metadata with
-        | OBus_value.V.Basic (OBus_value.V.String title) -> title
-        | _ -> failwith "bad title type"
+        let string_of_dbus = function
+          | OBus_value.V.Basic (OBus_value.V.String x) -> x
+          | _ -> failwith "unexpected type"
         in
+        let artist = match List.assoc "xesam:artist" metadata with
+        | OBus_value.V.Array (_, artist) -> List.map string_of_dbus artist
+        | _ -> failwith "bad artist type"
+        in
+        let title = string_of_dbus (List.assoc "xesam:title" metadata) in
+        lwt () = Lwt_io.printlf "Artist: %s" (String.concat ", " artist) in
         Lwt_io.printlf "Title: %s" title
       with _ ->
         Lwt_io.printlf "unexpected metadata"))
