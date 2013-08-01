@@ -13,6 +13,7 @@ Supported commands
 ------------------
 
 ```
+    spotify-cli now-playing
     spotify-cli play-pause
     spotify-cli previous
     spotify-cli next
