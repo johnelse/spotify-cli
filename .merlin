@@ -1,0 +1,4 @@
+PKG cmdliner lwt.syntax obus mpris.clients spotify-web
+S src
+
+B dist/build/spotify-cli
