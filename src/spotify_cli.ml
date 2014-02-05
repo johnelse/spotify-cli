@@ -115,8 +115,13 @@ let cmds = [
 let () =
   Printexc.record_backtrace true;
   try
-    match Term.eval_choice default_cmd cmds with
+    match Term.eval_choice ~catch:false default_cmd cmds with
     | `Error _ -> exit 1
-    | _ -> exit 0
-  with e ->
-    Printf.printf "Error: exception %s\n" (Printexc.to_string e)
+    | `Ok () | `Version | `Help -> exit 0
+  with
+  | Spotify_commands.No_results ->
+    Printf.printf "Search found no results\n";
+    exit 1
+  | e ->
+    Printf.printf "Error: exception %s\n" (Printexc.to_string e);
+    exit 1
