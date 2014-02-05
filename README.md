@@ -31,10 +31,3 @@ with the album or track name e.g.
 ```
     spotify-cli play-album "sepultura arise"
 ```
-
-TODO
-----
-
-* Better error handling for play-album and play-track when the metadata search
-  returns no results.
-* Implement play-artist for completeness.
