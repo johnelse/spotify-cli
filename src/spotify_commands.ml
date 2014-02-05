@@ -4,6 +4,7 @@ open Lwt_io
 module Spotify = Mpris_spotify.Org_mpris_MediaPlayer2_Player
 
 exception No_results
+exception Spotify_not_found
 
 let with_proxy f =
   lwt proxy = Mpris_spotify.make_proxy () in
@@ -12,8 +13,7 @@ let with_proxy f =
   with
     | OBus_bus.Name_has_no_owner _
     | OBus_bus.Service_unknown _ ->
-      lwt () = printl "Spotify service not found - is it running?" in
-      exit 1
+      raise_lwt Spotify_not_found
     | exn ->
       raise_lwt exn
 

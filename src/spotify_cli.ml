@@ -122,6 +122,9 @@ let () =
   | Spotify_commands.No_results ->
     Printf.printf "Search found no results\n";
     exit 1
+  | Spotify_commands.Spotify_not_found ->
+    Printf.printf "Spotify service not found - is it running?\n";
+    exit 1
   | e ->
     Printf.printf "Error: exception %s\n" (Printexc.to_string e);
     exit 1
