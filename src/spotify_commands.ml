@@ -52,6 +52,22 @@ let play_album album_name =
   in
   Lwt_main.run play_album_lwt
 
+let play_artist artist_name =
+  let play_artist_lwt =
+    let rec find_href = function
+      | [] -> None
+      | {Spotify_search_t.artist_href = None} :: rest -> find_href rest
+      | {Spotify_search_t.artist_href = Some href} :: _ -> Some href
+    in
+    lwt results = Spotify_search.search_artists artist_name in
+    match find_href results.Spotify_search_t.artists with
+    | Some href ->
+      with_proxy
+        (fun proxy -> Spotify.open_uri proxy href)
+    | None -> Lwt.fail No_results
+  in
+  Lwt_main.run play_artist_lwt
+
 let play_pause () =
   Lwt_main.run (with_proxy Spotify.play_pause)
 

@@ -65,6 +65,19 @@ let play_album_cmd =
   Term.(pure Spotify_commands.play_album $ album_name),
   Term.info "play-album" ~doc ~man
 
+let play_artist_cmd =
+  let artist_name =
+    let doc = "The artist name to use as a search string" in
+    Arg.(required & pos 0 (some string) None & info [] ~docv:"NAME" ~doc)
+  in
+  let doc = "play an artist" in
+  let man = [
+    `S "DESCRIPTION";
+    `P "Search for an artist using the spotify metadata API, then play the first result"
+  ] @ help_secs in
+  Term.(pure Spotify_commands.play_artist $ artist_name),
+  Term.info "play-artist" ~doc ~man
+
 let play_pause_cmd =
   let doc = "toggle between playing and paused states" in
   let man = [
@@ -107,6 +120,7 @@ let cmds = [
   next_cmd;
   now_playing_cmd;
   play_album_cmd;
+  play_artist_cmd;
   play_pause_cmd;
   play_track_cmd;
   previous_cmd;
