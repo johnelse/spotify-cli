@@ -1,0 +1,16 @@
+OASISFormat:  0.3
+Name:         spotify-cli
+Version:      0.1.0
+Synopsis:     Simple CLI program for controlling Spotify on Linux
+License:      MIT
+Authors:      John Else
+Copyrights:   (C) 2013 John Else
+BuildTools:   ocamlbuild
+Plugins:      META (0.3)
+
+Executable spotify_cli
+  CompiledObject: best
+  Path:           src
+  MainIs:         spotify_cli.ml
+  BuildDepends:   obus, lwt.syntax, mpris.clients, spotify-web, cmdliner
+  NativeOpt:      -bin-annot

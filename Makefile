@@ -1,16 +1,25 @@
 PREFIX?=/usr/local
+J=4
 
 .PHONY: install uninstall clean
 
-dist/build/spotify-cli/spotify-cli:
-	obuild configure
-	obuild build
+all: build
+
+setup.ml: _oasis
+	oasis setup
+
+setup.data: setup.ml
+	ocaml setup.ml -configure
+
+build: setup.data setup.ml
+	ocaml setup.ml -build -j $(J)
 
 install:
-	install -D dist/build/spotify-cli/spotify-cli $(PREFIX)/bin/spotify-cli
+	install -D spotify_cli.native $(PREFIX)/bin/spotify-cli
 
 uninstall:
 	rm -f $(PREFIX)/bin/spotify-cli
 
 clean:
-	rm -rf dist
+	ocamlbuild -clean
+	rm -f setup.data setup.log
