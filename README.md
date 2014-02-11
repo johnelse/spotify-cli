@@ -18,6 +18,7 @@ Supported commands
     spotify-cli previous
     spotify-cli next
     spotify-cli play-album <search-string>
+    spotify-cli play-artist <search-string>
     spotify-cli play-track <search-string>
 ```
 
