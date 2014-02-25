@@ -7,7 +7,6 @@ Build dependencies
 * [obus](https://github.com/diml/obus)
 * [ocaml-mpris](https://github.com/johnelse/ocaml-mpris)
 * [ocaml-spotify-web](https://github.com/johnelse/ocaml-spotify-web)
-* [obuild](https://github.com/vincenthz/obuild)
 
 Supported commands
 ------------------
