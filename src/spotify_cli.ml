@@ -8,11 +8,14 @@ let help man_format cmds topic =
     let conv, _ = Arg.enum (List.rev_map (fun s -> (s, s)) topics) in
     match conv topic with
     | `Error e -> `Error (false, e)
-    | `Ok t when t = "topics" -> List.iter print_endline topics; `Ok ()
+    | `Ok t when t = "topics" ->
+      List.iter print_endline topics;
+      `Ok Spotify_commands.Ok
     | `Ok t when List.mem t cmds -> `Help (man_format, Some t)
     | `Ok t ->
       let page = (topic, 7, "", "", ""), [`S topic; `P "Say something"] in
-      `Ok (Manpage.print man_format Format.std_formatter page)
+      Manpage.print man_format Format.std_formatter page;
+      `Ok Spotify_commands.Ok
 
 (* Command definitions *)
 let help_secs = [
@@ -128,17 +131,16 @@ let cmds = [
 
 let () =
   Printexc.record_backtrace true;
-  try
-    match Term.eval_choice ~catch:false default_cmd cmds with
-    | `Error _ -> exit 1
-    | `Ok () | `Version | `Help -> exit 0
-  with
-  | Spotify_commands.No_results ->
+  match Term.eval_choice default_cmd cmds with
+  | `Error _ -> exit 1
+  | `Version | `Help -> ()
+  | `Ok Spotify_commands.Ok -> ()
+  | `Ok Spotify_commands.No_search_results ->
     Printf.printf "Search found no results\n";
     exit 1
-  | Spotify_commands.Spotify_not_found ->
+  | `Ok Spotify_commands.Spotify_not_found ->
     Printf.printf "Spotify service not found - is it running?\n";
     exit 1
-  | e ->
-    Printf.printf "Error: exception %s\n" (Printexc.to_string e);
+  | `Ok Spotify_commands.Invalid_metadata msg ->
+    Printf.printf "Could not understand the received metadata: %s\n" msg;
     exit 1
