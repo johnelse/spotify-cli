@@ -1,0 +1,11 @@
+#!/bin/sh
+
+case $(uname -s) in
+Linux)
+    cp src/backend_linux.ml src/backend.ml
+    ;;
+*)
+    echo "Unsupported platform!"
+    exit 1
+    ;;
+esac

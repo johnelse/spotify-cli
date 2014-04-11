@@ -1,5 +1,7 @@
 *.swp
 
+src/backend.ml
+
 _build
 setup.data
 setup.log

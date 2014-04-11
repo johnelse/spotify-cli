@@ -10,12 +10,12 @@ let help man_format cmds topic =
     | `Error e -> `Error (false, e)
     | `Ok t when t = "topics" ->
       List.iter print_endline topics;
-      `Ok Commands.Ok
+      `Ok (Types.Ok ())
     | `Ok t when List.mem t cmds -> `Help (man_format, Some t)
     | `Ok t ->
       let page = (topic, 7, "", "", ""), [`S topic; `P "Say something"] in
       Manpage.print man_format Format.std_formatter page;
-      `Ok Commands.Ok
+      `Ok (Types.Ok ())
 
 (* Command definitions *)
 let help_secs = [
@@ -134,13 +134,13 @@ let () =
   match Term.eval_choice default_cmd cmds with
   | `Error _ -> exit 1
   | `Version | `Help -> ()
-  | `Ok Commands.Ok -> ()
-  | `Ok Commands.No_search_results ->
+  | `Ok (Types.Ok ()) -> ()
+  | `Ok Types.No_search_results ->
     Printf.printf "Search found no results\n";
     exit 1
-  | `Ok Commands.Spotify_not_found ->
+  | `Ok Types.Spotify_not_found ->
     Printf.printf "Spotify service not found - is it running?\n";
     exit 1
-  | `Ok Commands.Invalid_metadata msg ->
+  | `Ok Types.Invalid_metadata msg ->
     Printf.printf "Could not understand the received metadata: %s\n" msg;
     exit 1
