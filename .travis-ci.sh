@@ -29,4 +29,5 @@ opam install ${OPAM_PACKAGES}
 opam install spotify-web
 
 eval `opam config -env`
+./configure
 make
