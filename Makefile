@@ -1,4 +1,5 @@
 PREFIX?=/usr/local
+INSTALL_PATH=$(PREFIX)/bin/spotify-cli
 J=4
 
 .PHONY: install uninstall clean
@@ -15,10 +16,10 @@ build: setup.data setup.ml
 	ocaml setup.ml -build -j $(J)
 
 install:
-	install -D spotify_cli.native $(PREFIX)/bin/spotify-cli
+	install -D spotify_cli.native $(INSTALL_PATH)
 
 uninstall:
-	rm -f $(PREFIX)/bin/spotify-cli
+	rm -f $(INSTALL_PATH)
 
 clean:
 	ocamlbuild -clean
