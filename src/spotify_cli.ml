@@ -10,12 +10,12 @@ let help man_format cmds topic =
     | `Error e -> `Error (false, e)
     | `Ok t when t = "topics" ->
       List.iter print_endline topics;
-      `Ok Spotify_commands.Ok
+      `Ok Commands.Ok
     | `Ok t when List.mem t cmds -> `Help (man_format, Some t)
     | `Ok t ->
       let page = (topic, 7, "", "", ""), [`S topic; `P "Say something"] in
       Manpage.print man_format Format.std_formatter page;
-      `Ok Spotify_commands.Ok
+      `Ok Commands.Ok
 
 (* Command definitions *)
 let help_secs = [
@@ -43,7 +43,7 @@ let next_cmd =
     `S "DESCRIPTION";
     `P "Switch to the next track in the current playlist.";
   ] @ help_secs in
-  Term.(pure Spotify_commands.next $ pure ()),
+  Term.(pure Commands.next $ pure ()),
   Term.info "next" ~doc ~man
 
 let now_playing_cmd =
@@ -52,7 +52,7 @@ let now_playing_cmd =
     `S "DESCRIPTION";
     `P "Print metadata about the currently-playing track";
   ] @ help_secs in
-  Term.(pure Spotify_commands.now_playing $ pure ()),
+  Term.(pure Commands.now_playing $ pure ()),
   Term.info "now-playing" ~doc ~man
 
 let play_album_cmd =
@@ -65,7 +65,7 @@ let play_album_cmd =
     `S "DESCRIPTION";
     `P "Search for an album using the spotify metadata API, then play the first result"
   ] @ help_secs in
-  Term.(pure Spotify_commands.play_album $ album_name),
+  Term.(pure Commands.play_album $ album_name),
   Term.info "play-album" ~doc ~man
 
 let play_artist_cmd =
@@ -78,7 +78,7 @@ let play_artist_cmd =
     `S "DESCRIPTION";
     `P "Search for an artist using the spotify metadata API, then play the first result"
   ] @ help_secs in
-  Term.(pure Spotify_commands.play_artist $ artist_name),
+  Term.(pure Commands.play_artist $ artist_name),
   Term.info "play-artist" ~doc ~man
 
 let play_pause_cmd =
@@ -87,7 +87,7 @@ let play_pause_cmd =
     `S "DESCRIPTION";
     `P "Start spotify playing if it is paused, otherwise pause it.";
   ] @ help_secs in
-  Term.(pure Spotify_commands.play_pause $ pure ()),
+  Term.(pure Commands.play_pause $ pure ()),
   Term.info "play-pause" ~doc ~man
 
 let play_track_cmd =
@@ -100,7 +100,7 @@ let play_track_cmd =
     `S "DESCRIPTION";
     `P "Search for a track using the spotify metadata API, then play the first result"
   ] @ help_secs in
-  Term.(pure Spotify_commands.play_track $ track_name),
+  Term.(pure Commands.play_track $ track_name),
   Term.info "play-track" ~doc ~man
 
 let previous_cmd =
@@ -109,7 +109,7 @@ let previous_cmd =
     `S "DESCRIPTION";
     `P "Switch to the previous track in the current playlist.";
   ] @ help_secs in
-  Term.(pure Spotify_commands.previous $ pure ()),
+  Term.(pure Commands.previous $ pure ()),
   Term.info "previous" ~doc ~man
 
 let default_cmd =
@@ -134,13 +134,13 @@ let () =
   match Term.eval_choice default_cmd cmds with
   | `Error _ -> exit 1
   | `Version | `Help -> ()
-  | `Ok Spotify_commands.Ok -> ()
-  | `Ok Spotify_commands.No_search_results ->
+  | `Ok Commands.Ok -> ()
+  | `Ok Commands.No_search_results ->
     Printf.printf "Search found no results\n";
     exit 1
-  | `Ok Spotify_commands.Spotify_not_found ->
+  | `Ok Commands.Spotify_not_found ->
     Printf.printf "Spotify service not found - is it running?\n";
     exit 1
-  | `Ok Spotify_commands.Invalid_metadata msg ->
+  | `Ok Commands.Invalid_metadata msg ->
     Printf.printf "Could not understand the received metadata: %s\n" msg;
     exit 1
