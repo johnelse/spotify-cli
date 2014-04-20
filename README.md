@@ -1,7 +1,11 @@
 spotify-cli [![Build status](https://travis-ci.org/johnelse/spotify-cli.png?branch=master)](https://travis-ci.org/johnelse/spotify-cli)
 -----------
 
-Minimal OCaml CLI program for controlling spotify on Linux via dbus.
+Minimal OCaml CLI program for controlling the spotify desktop client.
+Supported platforms:
+
+* Linux (via DBus)
+* Mac OSX (via osascript)
 
 Build dependencies
 ------------------
