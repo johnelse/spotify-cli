@@ -16,7 +16,8 @@ build: setup.data setup.ml
 	ocaml setup.ml -build -j $(J)
 
 install:
-	install -D spotify_cli.native $(INSTALL_PATH)
+	install -d $(shell dirname $(INSTALL_PATH))
+	install spotify_cli.native $(INSTALL_PATH)
 
 uninstall:
 	rm -f $(INSTALL_PATH)
