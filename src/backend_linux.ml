@@ -24,13 +24,13 @@ let play_pause () = with_proxy_return_ok Spotify.play_pause
 let previous () = with_proxy_return_ok Spotify.previous
 
 let play_album album_href =
-  with_proxy (fun proxy -> Spotify.open_uri proxy album_href >>= ok)
+  with_proxy_return_ok (fun proxy -> Spotify.open_uri proxy album_href)
 
 let play_artist artist_href =
-  with_proxy (fun proxy -> Spotify.open_uri proxy artist_href >>= ok)
+  with_proxy_return_ok (fun proxy -> Spotify.open_uri proxy artist_href)
 
 let play_track track_href =
-  with_proxy (fun proxy -> Spotify.open_uri proxy track_href >>= ok)
+  with_proxy_return_ok (fun proxy -> Spotify.open_uri proxy track_href)
 
 let parse_metadata metadata =
   let artist_key = "xesam:artist" in
