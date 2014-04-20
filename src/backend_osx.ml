@@ -42,38 +42,17 @@ let previous () =
 let quote str =
   Printf.sprintf "\"%s\"" str
 
-let play_album album_name =
-  lwt results = Spotify_search.search_albums album_name in
-  match results.Spotify_search_t.albums with
-  | album :: _ ->
-    with_check_return_ok
-      (fun () ->
-        ["play"; "track"; quote album.Spotify_search_t.album_href]
-        |> script |> run)
-  | [] -> return No_search_results
+let play_album album_href =
+  with_check_return_ok
+    (fun () -> ["play"; "track"; quote album_href] |> script |> run)
 
-let play_artist artist_name =
-  let rec find_href = function
-    | [] -> None
-    | {Spotify_search_t.artist_href = None} :: rest -> find_href rest
-    | {Spotify_search_t.artist_href = Some href} :: _ -> Some href
-  in
-  lwt results = Spotify_search.search_artists artist_name in
-  match find_href results.Spotify_search_t.artists with
-  | Some href ->
-    with_check_return_ok
-      (fun () -> ["play"; "track"; quote href] |> script |> run)
-  | None -> return No_search_results
+let play_artist artist_href =
+  with_check_return_ok
+    (fun () -> ["play"; "track"; quote artist_href] |> script |> run)
 
-let play_track track_name =
-  lwt results = Spotify_search.search_tracks track_name in
-  match results.Spotify_search_t.tracks with
-  | track :: _ ->
-    with_check_return_ok
-      (fun () ->
-        ["play"; "track"; quote track.Spotify_search_t.track_href]
-        |> script |> run)
-  | [] -> return No_search_results
+let play_track track_href =
+  with_check_return_ok
+    (fun () -> ["play"; "track"; quote track_href] |> script |> run)
 
 let now_playing () =
   with_check_return_ok

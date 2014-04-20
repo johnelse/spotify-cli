@@ -23,35 +23,14 @@ let play_pause () = with_proxy_return_ok Spotify.play_pause
 
 let previous () = with_proxy_return_ok Spotify.previous
 
-let play_album album_name =
-  lwt results = Spotify_search.search_albums album_name in
-  match results.Spotify_search_t.albums with
-  | album :: _ ->
-    with_proxy
-      (fun proxy ->
-        Spotify.open_uri proxy album.Spotify_search_t.album_href >>= ok)
-  | [] -> return No_search_results
+let play_album album_href =
+  with_proxy (fun proxy -> Spotify.open_uri proxy album_href >>= ok)
 
-let play_artist artist_name =
-  let rec find_href = function
-    | [] -> None
-    | {Spotify_search_t.artist_href = None} :: rest -> find_href rest
-    | {Spotify_search_t.artist_href = Some href} :: _ -> Some href
-  in
-  lwt results = Spotify_search.search_artists artist_name in
-  match find_href results.Spotify_search_t.artists with
-  | Some href ->
-    with_proxy (fun proxy -> Spotify.open_uri proxy href >>= ok)
-  | None -> return No_search_results
+let play_artist artist_href =
+  with_proxy (fun proxy -> Spotify.open_uri proxy artist_href >>= ok)
 
-let play_track track_name =
-  lwt results = Spotify_search.search_tracks track_name in
-  match results.Spotify_search_t.tracks with
-  | track :: _ ->
-    with_proxy
-      (fun proxy ->
-        Spotify.open_uri proxy track.Spotify_search_t.track_href >>= ok)
-  | [] -> return No_search_results
+let play_track track_href =
+  with_proxy (fun proxy -> Spotify.open_uri proxy track_href >>= ok)
 
 let parse_metadata metadata =
   let artist_key = "xesam:artist" in
