@@ -1,5 +1,4 @@
 open Lwt
-open Lwt_io
 open Types
 
 (* Command implementations *)
