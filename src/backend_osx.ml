@@ -11,6 +11,9 @@ let script args =
     "tell app \"Spotify\" to %s"
     (String.concat " " args)
 
+let quote str =
+  Printf.sprintf "\"%s\"" str
+
 let run script =
   Lwt_process.pwrite_line ~stdout:`Dev_null osascript_command script
 
@@ -38,9 +41,6 @@ let play_pause () =
 let previous () =
   with_check_return_ok
     (fun () -> ["previous"; "track"] |> script |> run)
-
-let quote str =
-  Printf.sprintf "\"%s\"" str
 
 let play_album album_href =
   with_check_return_ok
