@@ -1,11 +1,13 @@
 open Lwt
 open Types
 
+(* OCaml 4.00.1 compatibility. *)
 let (|>) x f = f x
 
-(* Call osascript, and pass it a script over stdin. *)
+(* Call osascript such that it will expect to receive a script over stdin. *)
 let osascript_command = ("osascript", [|"osascript"; "-"|])
 
+(* Convert a list of strings into an applescript string targeting Spotify. *)
 let script args =
   Printf.sprintf
     "tell app \"Spotify\" to %s"
@@ -14,18 +16,23 @@ let script args =
 let quote str =
   Printf.sprintf "\"%s\"" str
 
+(* Send a script string to osascript, ignoring stdout. *)
 let run script =
   Lwt_process.pwrite_line ~stdout:`Dev_null osascript_command script
 
+(* Send a script string to osascript, returning stdout. *)
 let run_get_stdout script =
   Lwt_process.pmap_line osascript_command script
 
+(* Determine whether Spotify is running. *)
 let is_running () =
   run_get_stdout "get running of application \"Spotify\""
   >>= (function | "true" -> return true | _ -> return false)
 
 let ok x = return (Ok x)
 
+(* Check that Spotify is running; if it is, call f and return the result
+ * wrapped in Ok. *)
 let with_check_return_ok f =
   is_running ()
   >>= (function | true -> f () >>= ok | false -> return Spotify_not_found)
