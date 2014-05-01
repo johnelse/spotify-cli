@@ -1,5 +1,5 @@
 # OPAM packages needed to build tests.
-OPAM_PACKAGES="mpris cmdliner"
+OPAM_PACKAGES="oasis mpris cmdliner"
 
 
 case "$OCAML_VERSION,$OPAM_VERSION" in

@@ -2,6 +2,10 @@
 
 src/backend.ml
 
+_tags
+myocamlbuild.ml
+setup.ml
+
 _build
 setup.data
 setup.log
