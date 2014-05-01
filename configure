@@ -1,6 +1,9 @@
 #!/bin/sh
 
-case $(uname -s) in
+BUILD_PLATFORM=$(uname -s)
+echo "Building for platform $BUILD_PLATFORM"
+
+case $BUILD_PLATFORM in
 Linux)
     cp src/backend_linux.ml src/backend.ml
     ;;
