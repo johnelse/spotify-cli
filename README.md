@@ -28,8 +28,8 @@ Supported commands
     spotify-cli play-track <search-string>
 ```
 
-`play-track` and `play-album` search for the supplied name using the spotify
-metadata API, and play the first result (if any).
+`play-album`, `play-artist` and `play-track` search for the supplied name using
+the spotify metadata API, and play the first result (if any).
 
 `search-string` doesn't have to match the album or track title exactly - in
 fact you will probably get better results if you specify the artist name along
