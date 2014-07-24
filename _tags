@@ -27,3 +27,4 @@
 <src/*.ml{,i}>: pkg_spotify-web
 <src/*.ml{,i}>: pkg_cmdliner
 # OASIS_STOP
+<src/*.ml{,i}>: syntax_camlp4o
