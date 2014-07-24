@@ -2,7 +2,6 @@
 
 src/backend.ml
 
-_tags
 myocamlbuild.ml
 setup.ml
 
