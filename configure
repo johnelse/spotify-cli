@@ -5,10 +5,10 @@ echo "Building for platform $BUILD_PLATFORM"
 
 case $BUILD_PLATFORM in
 Linux)
-    ln -f src/backend_linux.ml src/backend.ml
+    ln -fv src/backend_linux.ml src/backend.ml
     ;;
 Darwin)
-    ln -f src/backend_osx.ml src/backend.ml
+    ln -fv src/backend_osx.ml src/backend.ml
     ;;
 *)
     echo "Unsupported platform!"
