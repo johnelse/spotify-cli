@@ -25,7 +25,3 @@ uninstall:
 clean:
 	ocamlbuild -clean
 	rm -f setup.data setup.log
-
-scrub: clean
-	rm -f myocamlbuild.ml
-	rm -f setup.ml
