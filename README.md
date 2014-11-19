@@ -7,6 +7,18 @@ Supported platforms:
 * Linux (via DBus)
 * Mac OSX (via osascript)
 
+Installation
+------------
+
+The easiest way to install is with [opam](http://opam.ocaml.org/), an OCaml
+package manager. spotify-cli is not yet in the main opam repository, so you'll
+have to add an extra remote first:
+
+```
+    opam remote add johnelse git://github.com/johnelse/opam-repo-johnelse
+    opam install spotify-cli
+```
+
 Build dependencies
 ------------------
 
