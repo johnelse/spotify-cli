@@ -1,5 +1,5 @@
 # OPAM packages needed to build tests.
-OPAM_PACKAGES="mpris cmdliner"
+OPAM_PACKAGES="mpris spotify-web-api cmdliner"
 
 
 case "$OCAML_VERSION,$OPAM_VERSION" in
@@ -26,7 +26,6 @@ opam --git-version
 opam init
 opam remote add johnelse git://github.com/johnelse/opam-repo-johnelse
 opam install ${OPAM_PACKAGES}
-opam install spotify-web
 
 eval `opam config -env`
 ./configure

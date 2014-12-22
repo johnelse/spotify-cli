@@ -10,28 +10,23 @@ let previous () = Lwt_main.run (Backend.previous ())
 
 let play_album album_name =
   Lwt_main.run (
-    lwt results = Spotify_search.search_albums album_name in
-    match results.Spotify_search_t.albums with
-    | album :: _ -> Backend.play_album album.Spotify_search_t.album_href
+    lwt results = Search.search_albums album_name in
+    match results.Album_t.items with
+    | album :: _ -> Backend.play_album album.Album_t.uri
     | [] -> return No_search_results)
 
 let play_artist artist_name =
-  let rec find_href = function
-    | [] -> None
-    | {Spotify_search_t.artist_href = None} :: rest -> find_href rest
-    | {Spotify_search_t.artist_href = Some href} :: _ -> Some href
-  in
   Lwt_main.run (
-    lwt results = Spotify_search.search_artists artist_name in
-    match find_href results.Spotify_search_t.artists with
-    | Some artist_href -> Backend.play_artist artist_href
-    | None -> return No_search_results)
+    lwt results = Search.search_artists artist_name in
+    match results.Artist_t.items with
+    | artist :: _ -> Backend.play_artist artist.Artist_t.uri
+    | [] -> return No_search_results)
 
 let play_track track_name =
   Lwt_main.run (
-    lwt results = Spotify_search.search_tracks track_name in
-    match results.Spotify_search_t.tracks with
-    | track :: _ -> Backend.play_track track.Spotify_search_t.track_href
+    lwt results = Search.search_tracks track_name in
+    match results.Track_t.items with
+    | track :: _ -> Backend.play_track track.Track_t.uri
     | [] -> return No_search_results)
 
 let now_playing () =
