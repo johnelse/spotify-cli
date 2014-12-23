@@ -3,6 +3,8 @@ maintainer: "john.else@gmail.com"
 build: [
   ["./configure"]
   [make]
+]
+install: [
   [make "PREFIX=%{prefix}%" "install"]
 ]
 remove: [
