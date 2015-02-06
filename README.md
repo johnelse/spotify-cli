@@ -25,7 +25,7 @@ Build dependencies
 * [cmdliner](https://github.com/dbuenzli/cmdliner)
 * [obus](https://github.com/diml/obus)
 * [ocaml-mpris](https://github.com/johnelse/ocaml-mpris)
-* [ocaml-spotify-web](https://github.com/johnelse/ocaml-spotify-web)
+* [ocaml-spotify-web-api](https://github.com/johnelse/ocaml-spotify-web-api)
 
 Supported commands
 ------------------
