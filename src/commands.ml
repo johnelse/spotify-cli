@@ -1,4 +1,5 @@
 open Lwt
+open Spotify_web_api
 open Types
 
 (* Command implementations *)
