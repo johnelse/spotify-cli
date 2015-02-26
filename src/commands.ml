@@ -12,21 +12,21 @@ let previous () = Lwt_main.run (Backend.previous ())
 let play_album album_name =
   Lwt_main.run (
     lwt results = Search.search_albums album_name in
-    match results.Album_t.items with
+    match results.Paging_t.items with
     | album :: _ -> Backend.play_album album.Album_t.uri
     | [] -> return No_search_results)
 
 let play_artist artist_name =
   Lwt_main.run (
     lwt results = Search.search_artists artist_name in
-    match results.Artist_t.items with
+    match results.Paging_t.items with
     | artist :: _ -> Backend.play_artist artist.Artist_t.uri
     | [] -> return No_search_results)
 
 let play_track track_name =
   Lwt_main.run (
     lwt results = Search.search_tracks track_name in
-    match results.Track_t.items with
+    match results.Paging_t.items with
     | track :: _ -> Backend.play_track track.Track_t.uri
     | [] -> return No_search_results)
 
