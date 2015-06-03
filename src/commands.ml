@@ -30,12 +30,18 @@ let play_track track_name =
     | track :: _ -> Backend.play_track track.Track_t.uri
     | [] -> return No_search_results)
 
+let print_key_value (key, value) =
+  Lwt_io.printlf "%s=\"%s\"" key value
+
 let now_playing () =
   Lwt_main.run
     (Backend.now_playing () >>= (function
       | Ok {artists; title} ->
-        lwt () = Lwt_io.printlf "Artist: %s" (String.concat ", " artists) in
-        lwt () = Lwt_io.printlf "Title: %s" title in
+        let data = [
+          "spotify_artist_name", (String.concat ", " artists);
+          "spotify_track_name", title;
+        ] in
+        lwt () = Lwt_list.iter_s print_key_value data in
         return (Ok ())
       | Spotify_not_found -> return Spotify_not_found
       | No_search_results -> return No_search_results
