@@ -10,4 +10,4 @@ install: [
 remove: [
   [make "PREFIX=%{prefix}%" "uninstall"]
 ]
-depends: ["cmdliner" "obus" "mpris" "spotify-web-api"]
+depends: ["cmdliner" "obus" "mpris" "rresult" "spotify-web-api"]
