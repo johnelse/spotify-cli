@@ -1,4 +1,4 @@
-OASISFormat:  0.3
+OASISFormat:  0.4
 Name:         spotify-cli
 Version:      0.1.0
 Synopsis:     Simple CLI program for controlling Spotify on Linux
