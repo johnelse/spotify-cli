@@ -1,2 +1,6 @@
+0.3.0 (25-Oct-2015):
+ * Changed format of now-playing
+ * Added HTTP URL to now-playing output
+
 0.2.0 (26-Feb-2015):
  * first public release

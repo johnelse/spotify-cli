@@ -1,6 +1,6 @@
 OASISFormat:  0.4
 Name:         spotify-cli
-Version:      0.1.0
+Version:      0.3.0
 Synopsis:     Simple CLI program for controlling Spotify on Linux
 License:      MIT
 Authors:      John Else
