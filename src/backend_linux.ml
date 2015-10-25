@@ -35,6 +35,7 @@ let play_track track_href =
 let parse_metadata metadata =
   let artist_key = "xesam:artist" in
   let title_key = "xesam:title" in
+  let url_key = "xesam:url" in
   try
     let string_of_dbus = function
       | OBus_value.V.Basic (OBus_value.V.String x) -> x
@@ -45,7 +46,8 @@ let parse_metadata metadata =
     | _ -> failwith "bad artist type"
     in
     let title = string_of_dbus (List.assoc title_key metadata) in
-    Metadata {artists; title}
+    let http_url = string_of_dbus (List.assoc url_key metadata) in
+    Metadata {artists; title; http_url}
   with
     | Not_found -> Parse_failure "missing key"
     | Failure msg -> Parse_failure msg

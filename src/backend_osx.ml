@@ -61,6 +61,10 @@ let play_track track_href =
   with_check_return_ok
     (fun () -> ["play"; "track"; quote track_href] |> script |> run)
 
+let convert_url spotify_url =
+  let id = Scanf.sscanf spotify_url "spotify:track:%s" (fun id -> id) in
+  Printf.sprintf "https://open.spotify.com/track/%s" id
+
 let now_playing () =
   with_check_return_ok
     (fun () ->
@@ -68,6 +72,9 @@ let now_playing () =
         ["get"; "artist"; "of"; "current"; "track"]
         |> script |> run_get_stdout in
       lwt title =
-        ["get"; "name"; "of"; "current"; "track"]
+				["get"; "name"; "of"; "current"; "track"]
         |> script |> run_get_stdout in
-      return {artists = [artist]; title})
+      lwt http_url =
+        ["get"; "spotify"; "url"; "of"; "current"; "track"]
+        |> script |> run_get_stdout >|= convert_url in
+return {artists = [artist]; title; http_url})

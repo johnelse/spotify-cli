@@ -36,10 +36,11 @@ let print_key_value (key, value) =
 let now_playing () =
   Lwt_main.run
     (Backend.now_playing () >>= (function
-      | Ok {artists; title} ->
+      | Ok {artists; title; http_url} ->
         let data = [
           "spotify_artist_name", (String.concat ", " artists);
           "spotify_track_name", title;
+          "spotify_http_url", http_url;
         ] in
         lwt () = Lwt_list.iter_s print_key_value data in
         return (Ok ())

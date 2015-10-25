@@ -7,6 +7,7 @@ type 'a command_result =
 type metadata = {
   artists: string list;
   title: string;
+  http_url: string;
 }
 
 type parse_result =
