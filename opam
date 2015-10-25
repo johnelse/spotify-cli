@@ -1,5 +1,9 @@
-opam-version: "1"
-maintainer: "john.else@gmail.com"
+opam-version: "1.2"
+author: "John Else <john.else@gmail.com>"
+maintainer: "John Else <john.else@gmail.com>"
+homepage: "https://github.com/johnelse/spotify-cli"
+bug-reports: "https://github.com/johnelse/spotify-cli/issues"
+dev-repo: "git://github.com/johnelse/spotify-cli"
 build: [
   ["./configure"]
   [make]
@@ -10,4 +14,9 @@ install: [
 remove: [
   [make "PREFIX=%{prefix}%" "uninstall"]
 ]
-depends: ["cmdliner" "obus" "mpris" "spotify-web-api"]
+depends: [
+  "cmdliner"
+  "obus"
+  "mpris"
+  "spotify-web-api"
+]
