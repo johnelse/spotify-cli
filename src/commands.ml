@@ -1,5 +1,6 @@
 open Lwt
 open Spotify_web_api
+open Rresult
 open Types
 
 (* Command implementations *)
@@ -13,8 +14,10 @@ let play_album album_name =
   Lwt_main.run (
     lwt results = Search.search_albums album_name in
     match results.Paging_t.items with
-    | album :: _ -> Backend.play_album album.Album_t.uri
-    | [] -> return No_search_results)
+    | album :: _ ->
+      Backend.play_album album.Album_t.uri >>| coerce
+      (*((Backend.play_album album.Album_t.uri) :> (unit, [ `Spotify_not_found | `No_search_results ]) result Lwt.t)*)
+    | [] -> return (Error `No_search_results))
 
 let play_artist artist_name =
   Lwt_main.run (
