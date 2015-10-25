@@ -1,3 +1,6 @@
+os:
+  - linux
+  - osx
 language: c
 install: wget https://raw.githubusercontent.com/johnelse/ocaml-travisci-skeleton/master/.travis-opam.sh
 script: PACKAGE=spotify-cli bash -ex .travis-opam.sh
