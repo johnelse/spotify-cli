@@ -72,7 +72,7 @@ let now_playing () =
         ["get"; "artist"; "of"; "current"; "track"]
         |> script |> run_get_stdout in
       lwt title =
-				["get"; "name"; "of"; "current"; "track"]
+        ["get"; "name"; "of"; "current"; "track"]
         |> script |> run_get_stdout in
       lwt http_url =
         ["get"; "spotify"; "url"; "of"; "current"; "track"]
