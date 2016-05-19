@@ -6,7 +6,7 @@ License:      MIT
 Authors:      John Else
 Copyrights:   (C) 2013 John Else
 BuildTools:   ocamlbuild
-Plugins:      META (0.3)
+Plugins:      META (0.4), DevFiles (0.4)
 
 Executable spotify_cli
   CompiledObject: best

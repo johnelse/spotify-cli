@@ -15,6 +15,7 @@ remove: [
   [make "PREFIX=%{prefix}%" "uninstall"]
 ]
 depends: [
+  "oasis" {build}
   "cmdliner"
   "obus"
   "mpris"

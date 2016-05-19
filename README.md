@@ -20,6 +20,7 @@ package manager:
 Build dependencies
 ------------------
 
+* [oasis](https://github.com/ocaml/oasis)
 * [cmdliner](https://github.com/dbuenzli/cmdliner)
 * [obus](https://github.com/diml/obus)
 * [ocaml-mpris](https://github.com/johnelse/ocaml-mpris)
