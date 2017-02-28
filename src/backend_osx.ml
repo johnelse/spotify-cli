@@ -62,8 +62,8 @@ let play_track track_href =
     (fun () -> ["play"; "track"; quote track_href] |> script |> run)
 
 let convert_url spotify_url =
-  let id = Scanf.sscanf spotify_url "spotify:track:%s" (fun id -> id) in
-  Printf.sprintf "https://open.spotify.com/track/%s" id
+  Scanf.sscanf spotify_url "spotify:track:%s"
+    (fun id -> Printf.sprintf "https://open.spotify.com/track/%s" id)
 
 let now_playing () =
   with_check_return_ok
