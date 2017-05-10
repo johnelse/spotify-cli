@@ -6,7 +6,7 @@ bug-reports: "https://github.com/johnelse/spotify-cli/issues"
 dev-repo: "git://github.com/johnelse/spotify-cli"
 build: [
   ["./configure"]
-  [make]
+  [make "build"]
 ]
 install: [
   [make "PREFIX=%{prefix}%" "install"]
@@ -15,9 +15,10 @@ remove: [
   [make "PREFIX=%{prefix}%" "uninstall"]
 ]
 depends: [
-  "oasis" {build}
+  "jbuilder" {build}
   "cmdliner"
   "obus"
+  "ocaml-migrate-parsetree"
   "mpris"
   "spotify-web-api"
 ]
