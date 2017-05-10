@@ -12,5 +12,5 @@ Executable spotify_cli
   CompiledObject: best
   Path:           src
   MainIs:         spotify_cli.ml
-  BuildDepends:   obus, lwt.syntax, mpris.clients, spotify-web-api, cmdliner
+  BuildDepends:   obus, lwt.ppx, mpris.clients, spotify-web-api, cmdliner
   NativeOpt:      -bin-annot

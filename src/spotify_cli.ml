@@ -144,3 +144,6 @@ let () =
   | `Ok Types.Invalid_metadata msg ->
     Printf.printf "Could not understand the received metadata: %s\n" msg;
     exit 1
+  | `Ok Types.Unexpected_error msg ->
+    Printf.printf "An unexpected error occurred: %s\n" msg;
+    exit 1

@@ -68,13 +68,13 @@ let convert_url spotify_url =
 let now_playing () =
   with_check_return_ok
     (fun () ->
-      lwt artist =
-        ["get"; "artist"; "of"; "current"; "track"]
-        |> script |> run_get_stdout in
-      lwt title =
-        ["get"; "name"; "of"; "current"; "track"]
-        |> script |> run_get_stdout in
-      lwt http_url =
-        ["get"; "spotify"; "url"; "of"; "current"; "track"]
-        |> script |> run_get_stdout >|= convert_url in
+      ["get"; "artist"; "of"; "current"; "track"]
+      |> script |> run_get_stdout
+      >>= fun artist ->
+      ["get"; "name"; "of"; "current"; "track"]
+      |> script |> run_get_stdout
+      >>= fun title ->
+      ["get"; "spotify"; "url"; "of"; "current"; "track"]
+      |> script |> run_get_stdout >|= convert_url
+      >>= fun http_url ->
       return {artists = [artist]; title; http_url})

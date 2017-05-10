@@ -3,6 +3,7 @@ type 'a command_result =
   | No_search_results
   | Spotify_not_found
   | Invalid_metadata of string
+  | Unexpected_error of string
 
 type metadata = {
   artists: string list;

@@ -4,13 +4,14 @@ open Types
 module Spotify = Mpris_spotify.Org_mpris_MediaPlayer2_Player
 
 let with_proxy f =
-  lwt proxy = Mpris_spotify.make_proxy () in
-  try_lwt
-    f proxy
-  with
-  | OBus_bus.Name_has_no_owner _
-  | OBus_bus.Service_unknown _ ->
-    return Spotify_not_found
+  Mpris_spotify.make_proxy ()
+  >>= fun proxy ->
+    Lwt.catch
+      (fun () -> f proxy)
+      (function
+        | OBus_bus.Name_has_no_owner _
+        | OBus_bus.Service_unknown _ -> return Spotify_not_found
+        | _ -> return (Unexpected_error "DBus error"))
 
 let ok x = return (Ok x)
 
