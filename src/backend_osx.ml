@@ -77,4 +77,4 @@ let now_playing () =
       lwt http_url =
         ["get"; "spotify"; "url"; "of"; "current"; "track"]
         |> script |> run_get_stdout >|= convert_url in
-return {artists = [artist]; title; http_url})
+      return {artists = [artist]; title; http_url})
