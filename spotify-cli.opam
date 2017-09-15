@@ -17,6 +17,7 @@ remove: [
 depends: [
   "jbuilder" {build}
   "cmdliner"
+  "lwt_ssl"
   "obus"
   "ocaml-migrate-parsetree"
   "mpris"
