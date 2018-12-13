@@ -1,5 +1,5 @@
 open Lwt
-open Types
+open Spotify_cli_types
 
 module Spotify = Mpris_spotify.Org_mpris_MediaPlayer2_Player
 
@@ -25,13 +25,13 @@ let play_pause () = with_proxy_return_ok Spotify.play_pause
 let previous () = with_proxy_return_ok Spotify.previous
 
 let play_album album_href =
-  with_proxy_return_ok (fun proxy -> Spotify.open_uri proxy album_href)
+  with_proxy_return_ok (fun proxy -> Spotify.open_uri proxy ~uri:album_href)
 
 let play_artist artist_href =
-  with_proxy_return_ok (fun proxy -> Spotify.open_uri proxy artist_href)
+  with_proxy_return_ok (fun proxy -> Spotify.open_uri proxy ~uri:artist_href)
 
 let play_track track_href =
-  with_proxy_return_ok (fun proxy -> Spotify.open_uri proxy track_href)
+  with_proxy_return_ok (fun proxy -> Spotify.open_uri proxy ~uri:track_href)
 
 let parse_metadata metadata =
   let artist_key = "xesam:artist" in

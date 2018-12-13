@@ -1,6 +1,6 @@
 open Lwt
 open Spotify_web_api
-open Types
+open Spotify_cli_types
 
 (* Command implementations *)
 let next () = Lwt_main.run (Backend.next ())
