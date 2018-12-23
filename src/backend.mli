@@ -1,4 +1,4 @@
-open Types
+open Spotify_cli_types
 
 val next: unit -> (unit command_result) Lwt.t
 val play_pause: unit -> (unit command_result) Lwt.t

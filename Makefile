@@ -1,13 +1,16 @@
 .PHONY: build clean
 
 build:
-	jbuilder build @install
+	./configure
+	dune build @all
 
 install:
-	jbuilder install
+	./configure
+	dune build @install
+	dune install
 
 uninstall:
-	jbuilder uninstall
+	dune uninstall
 
 clean:
-	rm -rf _build */.merlin
+	dune clean

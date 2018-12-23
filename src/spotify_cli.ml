@@ -1,5 +1,7 @@
 open Cmdliner
 
+module Ty = Spotify_cli_types
+
 let help man_format cmds topic =
   match topic with
   | None -> `Help (`Pager, None)
@@ -10,12 +12,12 @@ let help man_format cmds topic =
     | `Error e -> `Error (false, e)
     | `Ok t when t = "topics" ->
       List.iter print_endline topics;
-      `Ok (Types.Ok ())
+      `Ok (Ty.Ok ())
     | `Ok t when List.mem t cmds -> `Help (man_format, Some t)
-    | `Ok t ->
+    | `Ok _ ->
       let page = (topic, 7, "", "", ""), [`S topic; `P "Say something"] in
       Manpage.print man_format Format.std_formatter page;
-      `Ok (Types.Ok ())
+      `Ok (Ty.Ok ())
 
 (* Command definitions *)
 let help_secs = [
@@ -134,16 +136,16 @@ let () =
   match Term.eval_choice default_cmd cmds with
   | `Error _ -> exit 1
   | `Version | `Help -> ()
-  | `Ok (Types.Ok ()) -> ()
-  | `Ok Types.No_search_results ->
+  | `Ok (Ty.Ok ()) -> ()
+  | `Ok Ty.No_search_results ->
     Printf.printf "Search found no results\n";
     exit 1
-  | `Ok Types.Spotify_not_found ->
+  | `Ok Ty.Spotify_not_found ->
     Printf.printf "Spotify service not found - is it running?\n";
     exit 1
-  | `Ok Types.Invalid_metadata msg ->
+  | `Ok Ty.Invalid_metadata msg ->
     Printf.printf "Could not understand the received metadata: %s\n" msg;
     exit 1
-  | `Ok Types.Unexpected_error msg ->
+  | `Ok Ty.Unexpected_error msg ->
     Printf.printf "An unexpected error occurred: %s\n" msg;
     exit 1

@@ -1,5 +1,5 @@
 open Lwt
-open Types
+open Spotify_cli_types
 
 (* OCaml 4.00.1 compatibility. *)
 let (|>) x f = f x
