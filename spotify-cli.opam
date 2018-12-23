@@ -21,5 +21,6 @@ depends: [
   "obus"
   "ocaml-migrate-parsetree"
   "mpris"
+  "mpris-clients"
   "spotify-web-api"
 ]
