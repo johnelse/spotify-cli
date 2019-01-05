@@ -1,4 +1,5 @@
-opam-version: "1.2"
+opam-version: "2.0"
+synopsis: "CLI program for controlling the spotify desktop client"
 author: "John Else <john.else@gmail.com>"
 maintainer: "John Else <john.else@gmail.com>"
 homepage: "https://github.com/johnelse/spotify-cli"
