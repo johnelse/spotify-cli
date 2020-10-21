@@ -15,7 +15,7 @@ remove: [
   [make "PREFIX=%{prefix}%" "uninstall"]
 ]
 depends: [
-  "jbuilder" {build}
+  "dune" {>= "1.1"}
   "cmdliner"
   "lwt_ssl"
   "obus"
