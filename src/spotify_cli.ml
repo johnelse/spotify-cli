@@ -1,6 +1,7 @@
 open Cmdliner
 
 module Ty = Spotify_cli_types
+module Commands = (val Commands.make ()) 
 
 let help man_format cmds topic =
   match topic with
