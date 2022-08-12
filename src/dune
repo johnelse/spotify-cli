@@ -1,6 +1,6 @@
 (executable
   (name spotify_cli)
-  (libraries obus mpris mpris_clients spotify-web-api cmdliner)
+  (libraries obus mpris mpris-clients spotify-web-api cmdliner)
   (modules spotify_cli backend spotify_cli_types commands)
   (preprocess (pps lwt_ppx)))
 
