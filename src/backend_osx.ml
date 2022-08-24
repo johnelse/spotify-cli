@@ -35,7 +35,7 @@ let ok x = return (Ok x)
  * wrapped in Ok. *)
 let with_check_return_ok f =
   is_running ()
-  >>= (function | true -> f () >>= ok | false -> return Spotify_not_found)
+  >>= (function | true -> f () >>= ok | false -> return (Error Spotify_not_found))
 
 let next () =
   with_check_return_ok

@@ -1,9 +1,10 @@
-type 'a command_result =
-  | Ok of 'a
+type error =
   | No_search_results
   | Spotify_not_found
   | Invalid_metadata of string
   | Unexpected_error of string
+
+type 'a command_result = ('a, error) result
 
 type metadata = {
   artists: string list;

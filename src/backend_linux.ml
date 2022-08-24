@@ -10,8 +10,8 @@ let with_proxy f =
       (fun () -> f proxy)
       (function
         | OBus_bus.Name_has_no_owner _
-        | OBus_bus.Service_unknown _ -> return Spotify_not_found
-        | _ -> return (Unexpected_error "DBus error"))
+        | OBus_bus.Service_unknown _ -> return (Error Spotify_not_found)
+        | _ -> return (Error (Unexpected_error "DBus error")))
 
 let ok x = return (Ok x)
 
@@ -60,4 +60,4 @@ let now_playing () =
     >|= parse_metadata
     >>= (function
       | Metadata metadata -> return (Ok metadata)
-      | Parse_failure msg -> return (Invalid_metadata msg)))
+      | Parse_failure msg -> return (Error (Invalid_metadata msg))))
