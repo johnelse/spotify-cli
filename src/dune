@@ -1,3 +1,15 @@
+(rule
+  (enabled_if (= %{system} linux))
+  (targets backend.ml)
+  (action
+    (copy backend_linux.ml backend.ml)))
+
+(rule
+  (enabled_if (= %{system} macosx))
+  (targets backend.ml)
+  (action
+    (copy backend_osx.ml backend.ml)))
+
 (executable
   (name spotify_cli)
   (libraries obus mpris mpris-clients spotify-web-api cmdliner)
