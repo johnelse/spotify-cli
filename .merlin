@@ -1,4 +1,0 @@
-PKG cmdliner lwt.ppx obus mpris.clients spotify-web-api
-S src
-
-B _build/src
